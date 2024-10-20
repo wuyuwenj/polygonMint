@@ -23,6 +23,7 @@ const starton = axios.create({
 app.post("/upload", cors(), upload.single("file"), async (req, res) => {
   let data = new FormData();
   const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
+  
   data.append("file", blob, { filename: req.file.originalnam });
   data.append("isSync", "true");
 
@@ -63,7 +64,7 @@ app.post("/upload", cors(), upload.single("file"), async (req, res) => {
         params: [receiverAddress, metadataCid],
       }
     );
-    console.log("here", nft);
+    // console.log("here", nft);
     return nft.data;
   }
   const RECEIVER_ADDRESS = "0x19cC87fcd9F98ED04B49C3A94C416D34555b778F";
@@ -78,6 +79,7 @@ app.post("/upload", cors(), upload.single("file"), async (req, res) => {
     transactionHash: nft.transactionHash,
     cid: ipfsImgData.cid,
   });
+  console.log("1",req.file.mimetype);
 });
 app.listen(port, () => {
   console.log("Server is running on port " + port);
